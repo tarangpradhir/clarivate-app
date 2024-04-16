@@ -6,8 +6,8 @@ const ButtonContainer: React.FC = () => {
 
     return (
         <div className="button-group-container">
-            {location.pathname === "/" && <Link preventScrollReset={true} to="/list" className="go-to-list-btn">Go to List</Link>}
-            {location.pathname === "/list" && <Link preventScrollReset={true} to="/" className="go-to-dashboard-btn">Back</Link>}
+            {location.pathname === "/" && <Link to="/list" className="go-to-list-btn">Go to List</Link>}
+            {location.pathname === "/list" && <Link to="/" className="go-to-dashboard-btn">Back</Link>}
         </div>
     )
 }

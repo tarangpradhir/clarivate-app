@@ -1,11 +1,11 @@
-import {useEffect, memo} from "react";
+import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { addItemList, getItemList, getPage, setPage, getScrollPosition, setScrollPosition } from "../../store/itemSlice";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import ItemCard from "../ItemCard";
 import { API_URL } from "../../utils";
 
-const List: React.FC = memo(function List() {
+const List: React.FC = function List() {
     const dispatch = useDispatch();
     const itemList = useSelector(getItemList);
     const page = useSelector(getPage);
@@ -43,6 +43,6 @@ const List: React.FC = memo(function List() {
                 </InfiniteScroll>
         </div>
     )
-})
+}
 
 export default List;
