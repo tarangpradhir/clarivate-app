@@ -5,12 +5,14 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 type initialStateType = {
     itemList: itemType[],
-    page: number
+    page: number,
+    scrollPosition: number
 }
 
 const initialState: initialStateType = {
     itemList: [],
-    page: 1
+    page: 1,
+    scrollPosition: 0
 }
 
 export const itemSlice = createSlice({
@@ -40,11 +42,15 @@ export const itemSlice = createSlice({
         },
         setPage: (state, action: PayloadAction<number>) => {
             state.page = action.payload;
+        },
+        setScrollPosition: (state, action: PayloadAction<number>) => {
+            state.scrollPosition = action.payload;
         }
     }
 });
 
-export const {addItemList, addFavoriteItem, removeFavoriteItem, setPage} = itemSlice.actions;
+export const {addItemList, addFavoriteItem, removeFavoriteItem, setPage, setScrollPosition} = itemSlice.actions;
 export const getItemList = (state: RootState) => state.itemList;
 export const getPage = (state: RootState) => state.page;
+export const getScrollPosition = (state: RootState) => state.scrollPosition;
 export default itemSlice.reducer;

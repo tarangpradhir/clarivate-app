@@ -1,6 +1,6 @@
 import {useEffect, memo} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { addItemList, getItemList, getPage, setPage } from "../../store/itemSlice";
+import { addItemList, getItemList, getPage, setPage, getScrollPosition, setScrollPosition } from "../../store/itemSlice";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import ItemCard from "../ItemCard";
 import { API_URL } from "../../utils";
@@ -9,11 +9,17 @@ const List: React.FC = memo(function List() {
     const dispatch = useDispatch();
     const itemList = useSelector(getItemList);
     const page = useSelector(getPage);
+    const scrollPosition = useSelector(getScrollPosition);
 
     useEffect(() => {
         if(itemList.length === 0)
             fetchData();
+        (document.querySelector("#scrollableDiv") as HTMLElement)!.scrollTop = scrollPosition;
     }, [])
+
+    const scrollHandler = () => {
+        dispatch(setScrollPosition((document.querySelector("#scrollableDiv") as HTMLElement)!.scrollTop));
+    }
 
     const fetchData = async() => {
         const response = await fetch(`${API_URL}${page}&amp;_limit=10`);
@@ -23,7 +29,7 @@ const List: React.FC = memo(function List() {
     }
 
     return (
-        <div className="list-container" id="scrollableDiv">
+        <div className="list-container" id="scrollableDiv" onScroll={scrollHandler}>
                 <InfiniteScroll
                     dataLength={itemList.length}
                     next={fetchData}
